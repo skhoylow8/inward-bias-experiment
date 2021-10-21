@@ -1,0 +1,40 @@
+body {
+    background-color: #b4c0ca;
+    font-family: "Open Sans", sans-serif;
+    font-family: "Work Sans", sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.pageBox {
+    display:block;
+}
+
+#testFrame {
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    position: absolute;
+    height: 300px;
+    margin-top: 100px;
+    width: 670px;
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+#testImg, #bufferImg, #firstBufferSti, #firstBufferBkg {
+    bottom: 0px;
+    cursor: pointer; 
+    position: inherit;
+    left: 260px;  /* FRAME_WIDTH/2 - STIM_WIDTH/2 */
+}
+
+#bufferFrame, #firstBufferFrame {
+    display: none;
+}
+
+#thanksPage {
+    display: none;
+}
