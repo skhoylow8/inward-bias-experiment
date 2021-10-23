@@ -1,40 +1,254 @@
-body {
-    background-color: #b4c0ca;
-    font-family: "Open Sans", sans-serif;
-    font-family: "Work Sans", sans-serif;
+/* Yi-Chia Chen */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+	border: 0;
+	outline: 0;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+    width: 0px;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+body{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #444;
+    color: #ddd;
+    font-family: 'Raleway', Sans-serif;
+    font-size: 22px;
+    line-height: 30px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-div.pageBox {
-    display:block;
+/*  ######  ##     ##    ###    ########  ######## ########   */
+/* ##    ## ##     ##   ## ##   ##     ## ##       ##     ##  */
+/* ##       ##     ##  ##   ##  ##     ## ##       ##     ##  */
+/*  ######  ######### ##     ## ########  ######   ##     ##  */
+/*       ## ##     ## ######### ##   ##   ##       ##     ##  */
+/* ##    ## ##     ## ##     ## ##    ##  ##       ##     ##  */
+/*  ######  ##     ## ##     ## ##     ## ######## ########   */
+
+.page-box{
+    display: none;
+    position: relative;
+    margin: 50px auto;
+    width: 800px;
+}
+.fixed-box {
+    position: fixed;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    max-height: 100%;
+    transform: translate(-50%, -50%);
+}
+.warning {
+    padding: 30px 0;
+    color: #ffc8c8;
+}
+.question {
+    padding-bottom: 2%;
+}
+.bold {
+    font-weight: bold;
+}
+.small-dim {
+    color: #bbb;
+    font-size: 20px;
+    line-height: 32px;
+}
+.button {
+    display: block;
+    position: relative;
+    margin: 25px auto;
+    width: 250px;
+    height: 35px;
+    font-size: 18px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 8px;
+    background: #252525;
+    color: #ddd;
+    cursor: pointer;
+}
+.button:hover {
+    background: #333;
+}
+.button:active {
+    background: #111;
+}
+.radio-button {
+    width: 20px;
+    height: 20px;
+    margin-right: 1%;
+}
+.row {
+    display: flex;
+    align-items: center;
+}
+.center-text {
+    text-align: center;
+}
+.heading {
+    font-size: 32px;
 }
 
-#testFrame {
+
+/* #### ##    ##  ######  ######## ########  ##     ##  ######  ######## ####  #######  ##    ##  ######   */
+/*  ##  ###   ## ##    ##    ##    ##     ## ##     ## ##    ##    ##     ##  ##     ## ###   ## ##    ##  */
+/*  ##  ####  ## ##          ##    ##     ## ##     ## ##          ##     ##  ##     ## ####  ## ##        */
+/*  ##  ## ## ##  ######     ##    ########  ##     ## ##          ##     ##  ##     ## ## ## ##  ######   */
+/*  ##  ##  ####       ##    ##    ##   ##   ##     ## ##          ##     ##  ##     ## ##  ####       ##  */
+/*  ##  ##   ### ##    ##    ##    ##    ##  ##     ## ##    ##    ##     ##  ##     ## ##   ### ##    ##  */
+/* #### ##    ##  ######     ##    ##     ##  #######   ######     ##    ####  #######  ##    ##  ######   */
+
+#instr-img {
+    display: none;
+    position: relative;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+
+/*  ######   #######  ##    ##  ######  ######## ##    ## ########  */
+/* ##    ## ##     ## ###   ## ##    ## ##       ###   ##    ##     */
+/* ##       ##     ## ####  ## ##       ##       ####  ##    ##     */
+/* ##       ##     ## ## ## ##  ######  ######   ## ## ##    ##     */
+/* ##       ##     ## ##  ####       ## ##       ##  ####    ##     */
+/* ##    ## ##     ## ##   ### ##    ## ##       ##   ###    ##     */
+/*  ######   #######  ##    ##  ######  ######## ##    ##    ##     */
+
+.consent-instr {
+    color: #bbb;
+    font-size: 20px;
+    line-height: 60px;
+}
+.form-area {
+    margin: 0 auto;
+    padding: 20px;
+    width: 95%;
+    height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: auto;
+    font-size: 16px;
+    line-height: 25px;
+    background: #354545;
+}
+.form-area::-webkit-scrollbar {
+    width: 5px;
+}
+.form-area::-webkit-scrollbar-thumb {
+    background: #bbb;
+}
+
+
+/* ########    ###     ######  ##    ##  */
+/*    ##      ## ##   ##    ## ##   ##   */
+/*    ##     ##   ##  ##       ##  ##    */
+/*    ##    ##     ##  ######  #####     */
+/*    ##    #########       ## ##  ##    */
+/*    ##    ##     ## ##    ## ##   ##   */
+/*    ##    ##     ##  ######  ##    ##  */
+
+
+#task-box {
+	margin: 20px auto;
+    overflow-x: none;
+}
+.progress-bar {
+    margin: 10px 0;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+#test-frame {
     background-color: white;
     border-color: black;
     border-style: solid;
     border-width: 2px;
-    position: absolute;
+    position: relative;
     height: 300px;
     margin-top: 100px;
-    width: 670px;
-    left: 50%;
-    transform: translate(-50%, 0px);
+    /* width: 100%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, 0px); */
 }
 #testImg, #bufferImg, #firstBufferSti, #firstBufferBkg {
     bottom: 0px;
     cursor: pointer; 
-    position: inherit;
+    position: absolute;
     left: 260px;  /* FRAME_WIDTH/2 - STIM_WIDTH/2 */
 }
 
-#bufferFrame, #firstBufferFrame {
+#buffer-frame, #firstBufferFrame {
     display: none;
 }
 
-#thanksPage {
+#thanks-page {
     display: none;
+}
+
+
+/*
+    #     #####  
+   # #   #     # 
+  #   #  #     # 
+ #     # #     # 
+ ####### #   # # 
+ #     # #    #  
+ #     #  #### # 
+                 
+*/
+#aqBox {
+    display: none;
+}
+#aqContainer {
+    display: none;
+    text-align: center;
+}
+
+#aqProgressBar {
+    font-weight: bold;
+    /* position: relative; */
+    margin: 0 25%;
+    width: 50%;
+    /* height: 30px; */
+    /* text-align: center; */
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 1% 0 1% 0;
+}
+.aqLabel {
+    padding: 10%;
+}
+
+#aqOptionsContainer {
+    justify-content: center;
+    padding-top: 3%;
+}
+#aqBut {
+    display: none;
+}
+
+/* ########  ######## ########  ########  #### ######## ######## #### ##    ##  ######    */
+/* ##     ## ##       ##     ## ##     ##  ##  ##       ##        ##  ###   ## ##    ##   */
+/* ##     ## ##       ##     ## ##     ##  ##  ##       ##        ##  ####  ## ##         */
+/* ##     ## ######   ########  ########   ##  ######   ######    ##  ## ## ## ##   ####  */
+/* ##     ## ##       ##     ## ##   ##    ##  ##       ##        ##  ##  #### ##    ##   */
+/* ##     ## ##       ##     ## ##    ##   ##  ##       ##        ##  ##   ### ##    ##   */
+/* ########  ######## ########  ##     ## #### ######## ##       #### ##    ##  ######    */
+
+#debriefing-box{
+	margin: 80px auto;
 }
