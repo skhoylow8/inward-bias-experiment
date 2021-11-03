@@ -1,8 +1,3 @@
-// by Yi-Chia Chen
-// requires func.js by Yi-Chia Chen
-// requires mobile-detect.js by Heinrich Goebl
-
-
 //  ######  ##     ## ########        ## ########  ######  ########
 // ##    ## ##     ## ##     ##       ## ##       ##    ##    ##
 // ##       ##     ## ##     ##       ## ##       ##          ##

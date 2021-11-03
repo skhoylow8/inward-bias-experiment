@@ -1,6 +1,3 @@
-// Yi-Chia Chen
-
-
 // ########  #######  ########  ##     ##    ###    ########
 // ##       ##     ## ##     ## ###   ###   ## ##      ##
 // ##       ##     ## ##     ## #### ####  ##   ##     ##
@@ -67,6 +64,20 @@ function FORMAT_TIME(date_obj, time_zone, divider, padded) {
 // ######### ##   ##   ##   ##   #########    ##
 // ##     ## ##    ##  ##    ##  ##     ##    ##
 // ##     ## ##     ## ##     ## ##     ##    ##
+function GENERATE_TRIAL_LIST(images, background_images){
+    let res = [];
+    for(let i = 0; i < background_images.length; i++){
+        for(let j = 0; j < images.length; j++){
+            let obj = {
+                'backgroundImage': background_images[i],
+                'stimuli': images[j][0],
+                'direction': images[j][1]
+            };
+            res.push(obj);
+        }
+    }
+    return res;
+}
 
 function SHUFFLE_ARRAY(input_array) {
     var j, temp;

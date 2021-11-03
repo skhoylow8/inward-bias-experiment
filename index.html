@@ -1,4 +1,4 @@
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,13 +12,13 @@
     <noscript>It seems that JavaScript is disabled in your browser. Please go to settings and enable JavaScript for this experiment.</noscript>
 
     <!--======== PLEDGE ========-->
-    <div class='page-box fixed-box' id='pledge-box'>
+    <!-- <div class='page-box fixed-box' id='pledge-box'>
         <div class='bold question'>Will you read all the instructions carefully and treat the study seriously?</div>
         <label><div class='option row'><input class='radio-button' type='radio' name='pledge' value='1' /><p class='option-text'>Yes.</p></div></label>
         <label><div class='option row'><input class='radio-button' type='radio' name='pledge' value='0' /><p class='option-text'>No.</p></div></label>
         <button class='button' onclick='SUBMIT_PLEDGE_Q()'>SUBMIT</button>
         <p class='warning' id='pledge-warning'></p>
-    </div>
+    </div> -->
 
     <!--======== INSTRUCTIONS ========-->
     <div class='page-box fixed-box' id='instr-box'>
@@ -58,8 +58,8 @@
     <div class='page-box fixed-box' id='quiz-box'>
         <div class='boldText question'>What is your job in this experiment?</div>
         <label><div class='option row'><input class='radio-button' type='radio' name='quiz' value='forgot' /><p class='option-text'>Select this option if you do not remember the instructions.</p></div></label>
-        <label><div class='option row'><input class='radio-button' type='radio' name='quiz' value='option1' /><p class='option-text'>Option 1</p></div></label>
-        <label><div class='option row'><input class='radio-button' type='radio' name='quiz' value='option2' /><p class='option-text'>Option 2</p></div></label>
+        <label><div class='option row'><input class='radio-button' type='radio' name='quiz' value='option1' /><p class='option-text'>For the first part I have to move an image either left or right until it pleases me. For the second part I rate how much I agree with a statement.</p></div></label>
+        <label><div class='option row'><input class='radio-button' type='radio' name='quiz' value='option2' /><p class='option-text'>For the first part I have to move an image either up or down until it pleases me. For the second part I rate how much I agree with a statement.</p></div></label>
         <button class='button' onclick='SUBMIT_INSTR_Q()'>SUBMIT</button>
         <p class='warning' id='quiz-warning'></p>
     </div>
@@ -67,7 +67,7 @@
     <!--======== TASK ========-->
     <div class="page-box" id="task-box">
         <div id="test-frame">
-            <img id="testImg" src="media/blank.png" alt="" draggable="false" onclick="ADJUST_IMAGE(event)">
+            <img id="testImg" src="media/blank.png" alt="" draggable="false">
         </div>
         <div id="buffer-frame">
             <img id="bufferImg" src="media/blank.png" alt="">
@@ -80,19 +80,15 @@
         <p id="aqInstrText" class="center-text fixed-box">You have completed the first part!<br /><br />In the second part, you will answer some questions. This will take about 10 minutes and likely shorter.<br /><br />Hit SPACE to start!</p>
         <div id="aqContainer">
             <div id='aqProgressBar'><span id='aqProgress'>0</span>% completed</div>
-            <div class="fixed-box">
-                <div id='aqQ'></div>
+            <div class="aqRatingContainer">
+                <div id='aqQ' class="heading center-text aqHeading"></div>
                 <div id='aqOptionsContainer' class="row">
-                    <div><input class="radio radio-button aqButton" type="radio" id="aq4" name="rating" value="4">
-                    <label for="aq4" class="aqLabel">Strongly<br />Disagree</label><br></div>
-                    <div><input class="radio radio-button aqButton" type="radio" id="aq3" name="rating" value="3">
-                    <label for="aq3" class="qLabel">Slightly<br />Disagree</label><br></div>
-                    <div><input class="radio radio-button aqButton" type="radio" id="aq2" name="rating" value="2">
-                    <label for="aq2" class="aqLabel">Slightly<br />Agree</label><br></div>
-                    <div><input class="radio radio-button aqButton" type="radio" id="aq1" name="rating" value="1">
-                    <label for="aq1" class="aqLabel">Strongly<br />Agree</label><br></div>
+                    <button class="aqButton" value="1" onclick="AQ_RESPONSE(event)"><p class="aqButtonLabel">Strongly Disagree</p></button>
+                    <button class="aqButton" value="2" onclick="AQ_RESPONSE(event)"><p class="aqButtonLabel">Slightly Disagree</p></button>
+                    <button class="aqButton" value="3" onclick="AQ_RESPONSE(event)"><p class="aqButtonLabel">Slightly Agree</p></button>
+                    <button class="aqButton" value="4" onclick="AQ_RESPONSE(event)"><p class="aqButtonLabel">Strongly Agree</p></button>
                 </div>
-                <button class="button" id="expBut" onclick="AQ_RESPONSE(event)">NEXT</button>
+                <!-- <button class="button" id="expBut" onclick="AQ_RESPONSE(event)">NEXT</button> -->
                 <p class='warning' id='aq-warning'></p>
             </div>
         </div>
@@ -101,18 +97,20 @@
     <!--======== DEBRIEFING QUESTIONS ========-->
     <div class='page-box' id='questions-box'>
         <div class='question center-text heading'>
-            You are almost done! Please answer these last 4 questions:
+            You are almost done! <br /> Please answer these last 4 questions:
         </div>
         <div class='question'>
             <p class='bold '>Did you complete this experiment seriously throughout (without responding randomly)?</p>
             <p class='small-dim'>You will receive reward regardless of what your answer is here. Please be honest for science! Thanks!</p>
             <label><div class='row'><input class='radio radio-button' type='radio' name='serious' value='0' /><p class='option-text'>No, I didn't.</p></div></label>
             <label><div class='row'><input class='radio radio-button' type='radio' name='serious' value='1' /><p class='option-text'>Yes, I did.</p></div></label>
+            <p class='small-warning' id='serious-warning' style="display: none;"></p>
         </div>
         <div class='question'>
             <p class='bold'>Was any part of the procedure unclear? Did you have any problems completing any of the tasks?</p>
             <p class='small-dim'>You will receive payment regardless of what your answer is here. Please be honest for science! Thanks!</p>
-            <textarea id='problems'></textarea>
+            <textarea id='problems' rows="6" cols="100"></textarea>
+            <p class='small-warning' id='procedure-warning' style="display: none;"></p>
         </div>
         <div class='question'>
             <p class='bold'>What is your gender?</p>
@@ -120,26 +118,33 @@
             <label><div class='row'><input class='radio-button' type='radio' name='gender' value='M' /><p class='option-text'>Male</p></div></label>
             <label><div class='row'><input class='radio-button' type='radio' name='gender' value='O' /><p class='option-text'>Other</p></div></label>
             <label><div class='row'><input class='radio-button' type='radio' name='gender' value='N' /><p class='option-text'>I would rather not say</p></div></label>
+            <p class='small-warning' id='gender-warning' style="display: none;"></p>
         </div>
         <div class='question'>
-            <p class='bold'>What is your age?</p>
-            <input type='number' id='age' min='0' max='199'/>
+            <div class="row">
+                <p class='bold'>What is your age?</p>
+                <input class="age-input" type='number' id='age' min='0' max='80'/>
+            </div>
+            <p class='small-warning' id='age-warning' style="display: none;"></p>
         </div>
         <button class='button' onclick='SUBMIT_DEBRIEFING_Q()'>SUBMIT</button>
-        <p class='warning' id='questions-warning'></p>
     </div>
 
     <!--======== DEBRIEFING ========-->
     <div class='page-box' id='debriefing-box'>
-        You are done! Thank you very much!<br />
-        Whenever you are ready, click END to submit your work.
+        <div class="heading center-text">You are done! Thank you very much!</div>
 
-        <button class='button' onclick='END_TO_PROLIFIC()'>END</button>
-        Interested in what we are testing? See below for more information!<br /><br />
-        <strong>Debriefing Sheet</strong><br />
-        The purpose of this study is to investigate the a visual phenomenon called inward bias, which is the tendency for people to prefer aesthetic compositions that have figures facing towards the center of a frame.<br><br>
-        This study examined whether this phenomenon of leaving more space in the figures' facing direction can be explained by people's expectation to see what will happen in the future. This kind of study can help us understand some of the principles in visual perception.<br><br>
-        Please don't hesitate to contact us if you have any question or concern about this experiment.
+        Whenever you are ready, click END to submit your work.<br /><br />
+
+        Interested in what we are testing? See below for more information!<br /><br /><br /><br />
+        <strong>Debriefing Sheet:</strong><br />
+        <p style="font-size: 18px; padding-bottom: 5%;">
+            The purpose of this study is to investigate the a visual phenomenon called inward bias, which is the tendency for people to prefer aesthetic compositions that have figures facing towards the center of a frame.<br><br>
+            This study examined whether this phenomenon of leaving more space in the figures' facing direction can be explained by people's expectation to see what will happen in the future. This kind of study can help us understand some of the principles in visual perception.<br><br>
+            Please don't hesitate to contact us if you have any question or concern about this experiment.
+        </p>
+
+        <button class='button' onclick='END_SONA()'>END</button>
     </div>
 
     <!-- SCRIPTS -->

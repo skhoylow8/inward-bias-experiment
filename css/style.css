@@ -1,4 +1,3 @@
-/* Yi-Chia Chen */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -56,6 +55,10 @@ body{
     padding: 30px 0;
     color: #ffc8c8;
 }
+.small-warning {
+    color: #ffc8c8;
+    font-size: 16px;
+}
 .question {
     padding-bottom: 2%;
 }
@@ -64,8 +67,8 @@ body{
 }
 .small-dim {
     color: #bbb;
-    font-size: 20px;
-    line-height: 32px;
+    font-size: 16px;
+    padding-bottom: 1%;
 }
 .button {
     display: block;
@@ -87,10 +90,13 @@ body{
 .button:active {
     background: #111;
 }
+.option {
+    padding-bottom: 2%;
+}
 .radio-button {
-    width: 20px;
-    height: 20px;
-    margin-right: 1%;
+    transform: scale(1.5);
+    margin-right: 2%;
+    margin-left: 1%;
 }
 .row {
     display: flex;
@@ -101,6 +107,10 @@ body{
 }
 .heading {
     font-size: 32px;
+    padding-bottom: 5%;
+}
+.option-text {
+    font-size: 18px;
 }
 
 
@@ -173,6 +183,7 @@ body{
     text-align: center;
 }
 #test-frame {
+    margin: 0 auto;
     background-color: white;
     border-color: black;
     border-style: solid;
@@ -180,9 +191,8 @@ body{
     position: relative;
     height: 300px;
     margin-top: 100px;
-    /* width: 100%; */
-    /* left: 50%; */
-    /* transform: translate(-50%, 0px); */
+    width: 675px;
+    justify-content: center;
 }
 #testImg, #bufferImg, #firstBufferSti, #firstBufferBkg {
     bottom: 0px;
@@ -213,32 +223,41 @@ body{
 #aqBox {
     display: none;
 }
+
 #aqContainer {
     display: none;
     text-align: center;
 }
 
-#aqProgressBar {
-    font-weight: bold;
-    /* position: relative; */
-    margin: 0 25%;
-    width: 50%;
-    /* height: 30px; */
-    /* text-align: center; */
-    border: 2px solid white;
-    border-radius: 20px;
-    padding: 1% 0 1% 0;
+.aqRatingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20%;
 }
-.aqLabel {
-    padding: 10%;
+
+#aqProgressBar {
+    font-size: 18px;
+    margin: 0 25%;
+}
+
+.aqHeading {
+    flex-wrap: wrap;
+    padding: 2%;
 }
 
 #aqOptionsContainer {
     justify-content: center;
-    padding-top: 3%;
 }
-#aqBut {
-    display: none;
+
+.aqButton {
+    margin: 5%;
+    width: 200px;
+    border-radius: 10px;
+}
+.aqButtonLabel {
+    font-size: 20px;
+    padding: 5%;
 }
 
 /* ########  ######## ########  ########  #### ######## ######## #### ##    ##  ######    */
@@ -249,6 +268,11 @@ body{
 /* ##     ## ##       ##     ## ##    ##   ##  ##       ##        ##  ##   ### ##    ##   */
 /* ########  ######## ########  ##     ## #### ######## ##       #### ##    ##  ######    */
 
-#debriefing-box{
+#debriefing-box {
 	margin: 80px auto;
+}
+.age-input {
+    width: 50px;
+    height: 28px;
+    margin-left: 2%;
 }
