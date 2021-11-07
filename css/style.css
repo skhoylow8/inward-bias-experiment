@@ -57,7 +57,7 @@ body{
 }
 .small-warning {
     color: #ffc8c8;
-    font-size: 16px;
+    font-size: 18px;
 }
 .question {
     padding-bottom: 2%;
@@ -91,10 +91,20 @@ body{
     background: #111;
 }
 .option {
-    padding-bottom: 2%;
+    position: relative;
+    margin: 10px 0;
+    padding: 7px;
+    width: 100%;
+    border-radius: 8px;
+    background: #555;
+    cursor: pointer;
+}
+.option:hover {
+    background: gray;
 }
 .radio-button {
-    transform: scale(1.5);
+    height: 20px;
+    width: 20px;
     margin-right: 2%;
     margin-left: 1%;
 }
@@ -182,7 +192,7 @@ body{
     height: 30px;
     text-align: center;
 }
-#test-frame {
+#test-frame, #instr-test-frame {
     margin: 0 auto;
     background-color: white;
     border-color: black;
@@ -190,18 +200,18 @@ body{
     border-width: 2px;
     position: relative;
     height: 300px;
-    margin-top: 100px;
+    margin-top: 5%;
     width: 675px;
     justify-content: center;
 }
-#testImg, #bufferImg, #firstBufferSti, #firstBufferBkg {
+#test-img, #buffer-img, #instr-test-img {
     bottom: 0px;
     cursor: pointer; 
     position: absolute;
-    left: 260px;  /* FRAME_WIDTH/2 - STIM_WIDTH/2 */
+    left: 210px;  /* FRAME_WIDTH/2 - STIM_WIDTH/2 */
 }
 
-#buffer-frame, #firstBufferFrame {
+#buffer-frame {
     display: none;
 }
 
@@ -220,44 +230,67 @@ body{
  #     #  #### # 
                  
 */
-#aqBox {
+#aq-box {
     display: none;
 }
 
-#aqContainer {
+#aq-container {
     display: none;
     text-align: center;
 }
-
-.aqRatingContainer {
+.aq-rating-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20%;
 }
-
-#aqProgressBar {
-    font-size: 18px;
+#aq-progress-bar {
+    font-size: 24px;
     margin: 0 25%;
 }
-
-.aqHeading {
+.aq-heading {
     flex-wrap: wrap;
     padding: 2%;
+    font-size: 28px;
 }
-
-#aqOptionsContainer {
+#aq-options-container {
     justify-content: center;
 }
-
-.aqButton {
+.aq-button {
     margin: 5%;
     width: 200px;
     border-radius: 10px;
-}
-.aqButtonLabel {
     font-size: 20px;
-    padding: 5%;
+    padding: 1%;
+    cursor: pointer;
+}
+#aq-1 {
+    background-color: #4FC3F7;
+    color: white;
+}
+#aq-1:hover {
+    background-color: #81D4FA;
+}
+#aq-2 {
+    background-color: #29B6F6;
+    color: white;
+}
+#aq-2:hover {
+    background-color: #81D4FA;
+}
+#aq-3 {
+    background-color: #039BE5;
+    color: white;
+}
+#aq-3:hover {
+    background-color: #29B6F6;
+}
+#aq-4 {
+    background-color: #0277BD;
+    color: white;
+}
+#aq-4:hover {
+    background-color: #039BE5 ;
 }
 
 /* ########  ######## ########  ########  #### ######## ######## #### ##    ##  ######    */

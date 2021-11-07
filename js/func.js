@@ -64,18 +64,20 @@ function FORMAT_TIME(date_obj, time_zone, divider, padded) {
 // ######### ##   ##   ##   ##   #########    ##
 // ##     ## ##    ##  ##    ##  ##     ##    ##
 // ##     ## ##     ## ##     ## ##     ##    ##
+
 function GENERATE_TRIAL_LIST(images, background_images){
     let res = [];
-    for(let i = 0; i < background_images.length; i++){
-        for(let j = 0; j < images.length; j++){
+    for(let index in background_images){
+        for(let ind in images){
             let obj = {
-                'backgroundImage': background_images[i],
-                'stimuli': images[j][0],
-                'direction': images[j][1]
+                'backgroundImage': background_images[index],
+                'stimuli': images[ind][0],
+                'direction': images[ind][1]
             };
             res.push(obj);
         }
     }
+    console.log(res)
     return res;
 }
 
@@ -171,7 +173,7 @@ function LOAD_IMG(index, stim_path, img_list, after_func) {
 
 function LIST_FROM_ATTRIBUTE_NAMES(obj, string_list) {
     var list = []
-    for (var i = 0; i < string_list.length; i++) {
+    for (let i in string_list) {
         list.push(obj[string_list[i]]);
     }
     return list;

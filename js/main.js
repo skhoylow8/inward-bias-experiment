@@ -25,19 +25,19 @@ const FREE_PASS_ID = '1234'; // this is used for testing so this id will always 
 
 // stimuli
 const STIM_PATH = 'media/';
-const TRIAL_PRACTICE_LIST = [{'backgroundImage': 'background/grassfield_adjusted.png', 'stimuli': 'prac.png'}];
+const TRIAL_PRACTICE_LIST = [{'backgroundImage': 'prac_background.png', 'stimuli': 'prac.png'}];
 const PRACTICE_TRIAL_N = TRIAL_PRACTICE_LIST.length;
 const IMAGES = [
     ['averted_gaze/CC_L2_small.png', 'left'],
     ['averted_gaze/CC_R2_small.png', 'right'],
-    ['averted_gaze/YC_L2_small.png', 'left'],
-    ['averted_gaze/YC_R2_small.png', 'right'],
-    ['chair/Chair_L_small.png', 'left'],
-    ['chair/Chair_R_small.png', 'right'],
+    // ['averted_gaze/YC_L2_small.png', 'left'],
+    // ['averted_gaze/YC_R2_small.png', 'right'],
+    // ['chair/Chair_L_small.png', 'left'],
+    // ['chair/Chair_R_small.png', 'right'],
 ];
 const BACKGROUND_IMAGES = [
     'background/grassfield_adjusted.png',
-    'background/sea_adjusted.png'
+    // 'background/sea_adjusted.png'
 ];
 const TRIAL_LIST = GENERATE_TRIAL_LIST(IMAGES, BACKGROUND_IMAGES)
 const TRIAL_IMG_LIST = SHUFFLE_ARRAY(TRIAL_LIST);
@@ -115,50 +115,6 @@ const SUBJ_TITLES = [
     'viewportH'
 ];
 
-// function SEARCH_PLEDGE() {
-//     if (subj.id == FREE_PASS_ID) {
-//         $('#pledge-box').show();
-//     } else {
-//         console.log("POST_DATA ----> SEARCH_PLEDGE()");
-//         // POST_DATA(PLEDGE_CHECK_SCRIPT, { 'directory_path': SAVING_DIR, 'file_name': PLEDGE_FILE, 'worker_id': subj.id}, CHECK_PLEDGE, AJAX_FAILED);
-//     }
-// }
-
-// function CHECK_PLEDGE(found) {
-//     if (found == '0') {
-//         $('#pledge-box').show();
-//     } else {
-//         HALT_EXPERIMENT('It seems that you have reported that you will not read the instructions carefully before. In that case, you will not be fully informed and thus we are not allowed to let you participate because of the ethical concerns.<br /><br />If you believe you have received this message in error, please contact the experimenter at XXX@ucla.edu. Otherwise, please return the task.');
-//     }
-// }
-
-// function SUBMIT_PLEDGE_Q() {
-//     const RESP = $('input[name="pledge"]:checked').val();
-//     if (CHECK_IF_RESPONDED([], [RESP])) {
-//         $('#pledge-box').hide();
-//         if (RESP == 1){
-//             ACCEPT_PLEDGE();
-//         } else {
-//             REFUSE_PLEDGE();
-//         }
-//     } else {
-//         $('#pledge-warning').text('Please answer the question to start the experiment. Thank you!');
-//     }
-// }
-
-// function ACCEPT_PLEDGE() {
-//     instr = new instrObject(instr_options);
-//     trial_options['subj'] = subj;
-//     trial = new trialObject(trial_options);
-//     instr.start();
-// }
-
-// function REFUSE_PLEDGE() {
-//     console.log("POST_DATA ----> REFUSE_PLEDGE()");
-//     // POST_DATA(PLEDGE_RECORD_SCRIPT, { 'directory_path': SAVING_DIR, 'file_name': PLEDGE_FILE, 'worker_id': subj.id});
-//     HALT_EXPERIMENT('It seems that you have reported that you will not read the instructions carefully. In that case, you will not be fully informed and thus we are not allowed to let you participate because of the ethical concerns.<br /><br /> We are sorry that we have to ask you to return the task.');
-// }
-
 function UPDATE_TRIAL_OBJECT_SUBJ_NUM() {
     if (typeof trial !== 'undefined'){
         trial.num = subj.num;
@@ -177,34 +133,30 @@ function HANDLE_VISIBILITY_CHANGE() {
 function SUBMIT_DEBRIEFING_Q() {
     subj.serious = $('input[name=serious]:checked').val();
     if(!CHECK_IF_RESPONDED([], [subj.serious])){
-        $('#serious-warning').text('Please answer this question to complete the experiment. Thank you!');
-        $('#serious-warning').css('display', 'block');
+        $('#serious-warning').css('color', '#ffc8c8')
     }else{
-        $('#serious-warning').css('display', 'none');
+        $('#serious-warning').css('color', '#444')
     }
 
     subj.problems = $('#problems').val();
     if(!CHECK_IF_RESPONDED([subj.problems], [])){
-        $('#procedure-warning').text('Please answer this question to complete the experiment. Thank you!');
-        $('#procedure-warning').css('display', 'block');
+        $('#procedure-warning').css('color', '#ffc8c8')
     }else{
-        $('#procedure-warning').css('display', 'none');
+        $('#procedure-warning').css('color', '#444')
     }
 
     subj.gender = $('input[name=gender]:checked').val();
     if(!CHECK_IF_RESPONDED([], [subj.gender])){
-        $('#gender-warning').text('Please answer this question to complete the experiment. Thank you!');
-        $('#gender-warning').css('display', 'block');
+        $('#gender-warning').css('color', '#ffc8c8')
     }else{
-        $('#gender-warning').css('display', 'none');
+        $('#gender-warning').css('color', '#444')
     }
 
     subj.age = $('#age').val();
     if(!CHECK_IF_RESPONDED([subj.age], []) || (subj.age > 80)){
-        $('#age-warning').text('Please answer this question to complete the experiment. Thank you!');
-        $('#age-warning').css('display', 'block');
+        $('#age-warning').css('color', '#ffc8c8')
     }else{
-        $('#age-warning').css('display', 'none');
+        $('#age-warning').css('color', '#444')
     }
     
     const OPEN_ENDED_LIST = [subj.problems, subj.age];
@@ -271,15 +223,17 @@ var subj_options = {
 // #### ##    ##  ######     ##    ##     ##
 
 const MAIN_INSTRUCTIONS_DICT = [
-    [false, false, 'Thank you very much!<br /><br />This study will take about 20 minutes. Please read the instructions carefully, and avoid using the refresh or back buttons.'],
+    [false, false, 'Thank you for participating!<br /><br />This study will take about 20 minutes. Please read the instructions carefully, and avoid using the refresh or back buttons.'],
+    [false, false, 'In this experiment, I am interested in what “looks good” to you. In particular, how the framing of an image influences your aesthetic experience.'],
+    [false, false, 'There are two parts to this experiment. I am going to walk you through the first part, and will explain the second part when we get to it.'],
     [SHOW_MAXIMIZE_WINDOW, false, 'Now, please maximize your browser window.'],
-    [HIDE_INSTR_IMG, false, 'This study consists of two parts.'],
-    [false, false, 'In the first part you will be presented with an image in a frame. Your task is to move the image either to the left or to the right until it is in a position that looks pleasing to you.'],
-    [false, false, 'For this first part you will first be presented ' + PRACTICE_TRIAL_N +' practice trial and then a total of ' + TRIAL_N + ' formal trials.'],
-    [false, false, 'In the second part you will be presented with statements in which you have to decide if you Strongly Disagree, Slightly Disagree, Slightly Agree, or Strongly Agree with them.'],
-    [false, false, "The next page is a quick instruction quiz. (It's very simple!)"],
+    [SHOW_TRIAL_IMG, false, 'In the first part, you will view an image in a frame (as in the example below). As you can see below, there will be a figure (an object or a person) in the image.'],
+    [HIDE_TRIAL_IMG, false, 'Your job is to make the image look as good as possible to you by adjusting the horizontal position of the figure in it.'],
+    [false, false, 'That means, you will drag the figure left or right to move it within the image and drop it wherever you think makes the image look visually pleasing.'],
+    [false, false, 'You will first practice this ' + PRACTICE_TRIAL_N +' time and do this seriously ' + TRIAL_N + ' times after.'],
+    [false, false, "Sounds good? The next page is a quick instruction quiz. (It's very simple!)"],
     [false, SHOW_INSTR_QUESTION, ''],
-    [SHOW_CONSENT, false, "Great! You can press SPACE to start. Please focus after you start (e.g., don't switch to other windows or tabs!)"]
+    [SHOW_CONSENT, false, "Great! We are going to start now. Make sure to stay focused (e.g., don't switch to other windows or tabs!)! Press SPACE when you are ready. "]
 ];
 
 function SHOW_INSTR_IMG(file_name) {
@@ -287,8 +241,17 @@ function SHOW_INSTR_IMG(file_name) {
     $('#instr-img').css('display', 'block');
 }
 
+function SHOW_TRIAL_IMG() {
+    $('#instr-img').hide()
+    $('#instr-test-frame').show()
+}
+
 function HIDE_INSTR_IMG() {
     $('#instr-img').css('display', 'none');
+}
+
+function HIDE_TRIAL_IMG() {
+    $('#instr-test-frame').css('display', 'none');
 }
 
 function SHOW_MAXIMIZE_WINDOW() {
@@ -304,7 +267,7 @@ function SUBMIT_INSTR_Q() {
     const CHOICE = $('input[name="quiz"]:checked').val();
     if (typeof CHOICE === 'undefined') {
         $('#quiz-warning').text('Please answer the question. Thank you!');
-    } else if (CHOICE != 'option1') {
+    } else if (CHOICE != 'horizontally') {
         instr.quizAttemptN['onlyQ'] += 1;
         instr.saveReadingTime();
         $('#instr-text').text('You have given an incorrect answer. Please read the instructions again carefully.');
@@ -316,7 +279,6 @@ function SUBMIT_INSTR_Q() {
         instr.saveReadingTime();
         instr.next();
         $('#quiz-box').hide();
-        $('#instr-box').show();
     }
 }
 
@@ -371,19 +333,20 @@ function SHOW_TRIAL() {
 
 function TRIAL_UPDATE(formal_trial, last, this_trial, next_trial, path) {
     $('#trial-progress').text(trial.progress);
-    $('#expBut').hide()
-    IMAGE_ORIGINAL_POS_X = $("#testImg").position().left;
+    $('#exp-button').prop("disabled",true);
 
     trial.stimName = this_trial.stimuli;
     trial.background = this_trial.backgroundImage;
     trial.facingDir = this_trial.direction;
+    trial.imagAdj = 0
 
     $('#test-frame').css("background-image", "url(" + path + this_trial.backgroundImage + ")");
-    $("#testImg").attr("src", path + this_trial.stimuli);
-    $("#testImg").on('load', function() {
-        $("#testImg").css('left', (FRAME_WIDTH/2)-(this.naturalWidth/2));
+    $("#test-img").attr("src", path + this_trial.stimuli);
+    $("#test-img").on('load', function() {
+        $("#test-img").css('left', (FRAME_WIDTH/2)-(this.naturalWidth/2));
+        IMAGE_ORIGINAL_POS_X = (FRAME_WIDTH/2)-(this.naturalWidth/2)
     });
-    $('#testImg').click(ADJUST_IMAGE);
+    $('#test-img').click(ADJUST_IMAGE);
 
     if(!last){
         $("#buffer-frame").css("background-image", "url("+ path + next_trial.backgroundImage+")");
@@ -391,34 +354,38 @@ function TRIAL_UPDATE(formal_trial, last, this_trial, next_trial, path) {
     }
     
     // Make image draggable
-    $("#testImg").draggable({
+    $("#test-img").draggable({
         containment: 'parent',
         axis: 'x',
     });
 }
 
 const ADJUST_IMAGE = () =>{ 
-    let imagePosX = $("#testImg").position().left;
+    let imagePosX = $("#test-img").position().left;
     trial.imagAdj = imagePosX - IMAGE_ORIGINAL_POS_X;
-    $('#expBut').show();
+    $('#exp-button').prop("disabled",false);
 }
 
 function TRIAL() {
     $("#test-frame").show();
-    trial.inView = CHECK_FULLY_IN_VIEW($("#testImg"));
+    $("#exp-button").show();
+    $("#task-header").show();
+    trial.inView = CHECK_FULLY_IN_VIEW($("#test-img"));
 }
 
 function END_TRIAL() {
     $("#test-frame").hide();
-    $("#expBut").hide();
+    $("#exp-button").hide();
+    $("#task-header").hide();
     trial.end();
 }
 
 function END_EXPT() {
     $("#trial-page").hide();
-    $("#expBut").hide();
+    $("#exp-button").hide();
+    $("#task-header").hide();
     trial.save();
-    $("#aqBox").css("display", "block");
+    $("#aq-box").css("display", "block");
     $(document).keyup(function(e) {
         if (e.which == 32) { // the 'space' key
             $(document).off("keyup");
@@ -456,13 +423,13 @@ var trial_options = {
 */
 
 function START_AQ() {
-    $("#aqInstrText").hide();
+    $("#aq-instr-text").hide();
     subj.aqResponses  = {};
     subj.aqRt  = {};
     subj.aqNowQ = 1;
     startTime = Date.now();
     $("#aqQ").text(AQ_QUESTION_DICT[1]);
-    $("#aqContainer").show();
+    $("#aq-container").show();
 }
 
 function AQ_RESPONSE(event) {
@@ -473,15 +440,21 @@ function AQ_RESPONSE(event) {
     subj.aqRt[subj.aqNowQ] = (currentTime - startTime) / 1000;
     if (subj.aqNowQ == AQ_LENGTH){
         console.log(subj.aqResponses);
-        $("#aqBox").hide();
+        $("#aq-box").hide();
+        $(".small-warning").css('color', '#444')
         $("#questions-box").show();
         subj.detectVisibilityEnd();
     } else {
-        subj.aqNowQ += 1;
-        $("#aqQ").text(AQ_QUESTION_DICT[subj.aqNowQ]);
-        $("#aqProgress").text( Math.round(100 * subj.aqNowQ / (AQ_LENGTH+2)) );
-        $('#aq-warning').text('');
-        $("input[type=radio][name=rating]").prop('checked', false);
+        $("#aq-box").hide()
+        const NEXT_AQ = () =>{
+            subj.aqNowQ += 1;
+            $("#aqQ").text(AQ_QUESTION_DICT[subj.aqNowQ]);
+            $("#aq-progress").text( Math.round(100 * subj.aqNowQ / (AQ_LENGTH+2)) );
+            $('#aq-warning').text('');
+            $("#aq-box").show()
+        }
+
+        setTimeout(NEXT_AQ, 1000);
     }
 }
 
@@ -491,51 +464,51 @@ const AQ_QUESTION_DICT = {
     2: "I prefer to do things the same way over and over again.",
     3: "If I try to imagine something, I find it very easy to create a picture in my mind.",
     4: "I frequently get so strongly absorbed in one thing that I lose sight of other things.",
-    5: "I often notice small sounds when others do not.",
-    6: "I usually notice car number plates or similar strings of information.",
-    7: "Other people frequently tell me that what I've said is impolite, even though I think it is polite.",
-    8: "When I'm reading a story, I can easily imagine what the characters might look like.",
-    9: "I am fascinated by dates (calendar dates).",
-    10: "In a social group, I can easily keep track of several different people's conversations.",
-    11: "I find social situations easy.",
-    12: "I tend to notice details that others do not.",
-    13: "I would rather go to a library than to a party.",
-    14: "I find making up stories easy.",
-    15: "I find myself drawn more strongly to people than to things.",
-    16: "I tend to have very strong interests, which I get upset about if I can't pursue.",
-    17: "I enjoy social chitchat.",
-    18: "When I talk, it isn't always easy for others to get a word in edgewise.", //SSS
-    19: "I am fascinated by numbers.",
-    20: "When I'm reading a story, I find it difficult to work out the characters' intentions.",
-    21: "I don't particularly enjoy reading fiction.",
-    22: "I find it hard to make new friends.",
-    23: "I notice patterns in things all the time.",
-    24: "I would rather go to the theater than to a museum.",
-    25: "It does not upset me if my daily routine is disturbed.",
-    26: "I frequently find that I don't know how to keep a conversation going.",
-    27: 'I find it easy to "read between the lines" when someone is talking to me.',
-    28: "I usually concentrate more on the whole picture, rather than on the small details.",
-    29: "I am not very good at remembering phone numbers.",
-    30: "I don't usually notice small changes in a situation or a person's appearance.",
-    31: "I know how to tell if someone listening to me is getting bored.",
-    32: "I find it easy to do more than one thing at once.",
-    33: "When I talk on the phone, I'm not sure when it's my turn to speak.",
-    34: "I enjoy doing things spontaneously.",
-    35: "I am often the last to understand the point of a joke.",
-    36: "I find it easy to work out what someone is thinking or feeling just by looking at their face.",
-    37: "If there is an interruption, I can switch back to what I was doing very quickly.",
-    38: "I am good at social chitchat.",
-    39: "People often tell me that I keep going on and on about the same thing.",
-    40: "When I was young, I used to enjoy playing games involving pretending with other children.",
-    41: "I like to collect information about categories of things (e.g., types of cars, birds, trains, plants, etc.).",
-    42: "I find it difficult to imagine what it would be like to be someone else.",
-    43: "I like to plan any activities I participate in carefully.",
-    44: "I enjoy social occasions.",
-    45: "I find it difficult to work out people's intentions.",
-    46: "New situations make me anxious.",
-    47: "I enjoy meeting new people.",
-    48: "I am a good diplomat.",
-    49: "I am not very good at remembering people's dates of birth.",
-    50: "I find it very easy to play games with children that involve pretending."
+    // 5: "I often notice small sounds when others do not.",
+    // 6: "I usually notice car number plates or similar strings of information.",
+    // 7: "Other people frequently tell me that what I've said is impolite, even though I think it is polite.",
+    // 8: "When I'm reading a story, I can easily imagine what the characters might look like.",
+    // 9: "I am fascinated by dates (calendar dates).",
+    // 10: "In a social group, I can easily keep track of several different people's conversations.",
+    // 11: "I find social situations easy.",
+    // 12: "I tend to notice details that others do not.",
+    // 13: "I would rather go to a library than to a party.",
+    // 14: "I find making up stories easy.",
+    // 15: "I find myself drawn more strongly to people than to things.",
+    // 16: "I tend to have very strong interests, which I get upset about if I can't pursue.",
+    // 17: "I enjoy social chitchat.",
+    // 18: "When I talk, it isn't always easy for others to get a word in.",
+    // 19: "I am fascinated by numbers.",
+    // 20: "When I'm reading a story, I find it difficult to work out the characters' intentions.",
+    // 21: "I don't particularly enjoy reading fiction.",
+    // 22: "I find it hard to make new friends.",
+    // 23: "I notice patterns in things all the time.",
+    // 24: "I would rather go to the theater than to a museum.",
+    // 25: "It does not upset me if my daily routine is disturbed.",
+    // 26: "I frequently find that I don't know how to keep a conversation going.",
+    // 27: 'I find it easy to "read between the lines" when someone is talking to me.',
+    // 28: "I usually concentrate more on the whole picture, rather than on the small details.",
+    // 29: "I am not very good at remembering phone numbers.",
+    // 30: "I don't usually notice small changes in a situation or a person's appearance.",
+    // 31: "I know how to tell if someone listening to me is getting bored.",
+    // 32: "I find it easy to do more than one thing at once.",
+    // 33: "When I talk on the phone, I'm not sure when it's my turn to speak.",
+    // 34: "I enjoy doing things spontaneously.",
+    // 35: "I am often the last to understand the point of a joke.",
+    // 36: "I find it easy to work out what someone is thinking or feeling just by looking at their face.",
+    // 37: "If there is an interruption, I can switch back to what I was doing very quickly.",
+    // 38: "I am good at social chitchat.",
+    // 39: "People often tell me that I keep going on and on about the same thing.",
+    // 40: "When I was young, I used to enjoy playing games involving pretending with other children.",
+    // 41: "I like to collect information about categories of things (e.g., types of cars, birds, trains, plants, etc.).",
+    // 42: "I find it difficult to imagine what it would be like to be someone else.",
+    // 43: "I like to plan any activities I participate in carefully.",
+    // 44: "I enjoy social occasions.",
+    // 45: "I find it difficult to work out people's intentions.",
+    // 46: "New situations make me anxious.",
+    // 47: "I enjoy meeting new people.",
+    // 48: "I am a good diplomat.",
+    // 49: "I am not very good at remembering people's dates of birth.",
+    // 50: "I find it very easy to play games with children that involve pretending."
 };
 const AQ_LENGTH = Object.keys(AQ_QUESTION_DICT).length;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

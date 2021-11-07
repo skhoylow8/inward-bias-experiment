@@ -309,12 +309,18 @@ class instrObject {
     }
 
     next() {
-        this.saveReadingTime();
         this.textBox.hide();
-        this.index += 1;
-        if (this.index < Object.keys(this.dict).length) {
-            this.advance();
+        const START_NEXT = () => {
+            this.textBox.show();
+            this.saveReadingTime();
+            this.textBox.hide();
+            this.index += 1;
+            if (this.index < Object.keys(this.dict).length) {
+                this.advance();
+            }
         }
+
+        setTimeout(START_NEXT, 1000);
     }
 
     saveReadingTime() {
