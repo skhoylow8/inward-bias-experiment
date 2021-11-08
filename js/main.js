@@ -8,13 +8,10 @@
 
 // data saving
 const FORMAL = false;
-const EXPERIMENT_NAME = 'inward-bias';
-const PLEDGE_CHECK_SCRIPT = 'php/pledge_check.php';
-const PLEDGE_RECORD_SCRIPT = 'php/pledge_record.php';
-const SUBJ_NUM_SCRIPT = 'php/subjNum.php';
-const SAVING_SCRIPT = 'php/save.php';
+const EXPERIMENT_NAME = 'inward_bias';
+const SUBJ_NUM_SCRIPT = '../php/subjNum.php';
+const SAVING_SCRIPT = '../php/save.php';
 const VISIT_FILE = 'visit_' + EXPERIMENT_NAME + '.txt';
-const PLEDGE_FILE = 'pledge_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_NUM_FILE = 'subjNum_' + EXPERIMENT_NAME + '.txt';
 const ATTRITION_FILE = 'attrition_' + EXPERIMENT_NAME + '.txt';
 const TRIAL_FILE = 'trial_' + EXPERIMENT_NAME + '.txt';
@@ -30,14 +27,14 @@ const PRACTICE_TRIAL_N = TRIAL_PRACTICE_LIST.length;
 const IMAGES = [
     ['averted_gaze/CC_L2_small.png', 'left'],
     ['averted_gaze/CC_R2_small.png', 'right'],
-    // ['averted_gaze/YC_L2_small.png', 'left'],
-    // ['averted_gaze/YC_R2_small.png', 'right'],
-    // ['chair/Chair_L_small.png', 'left'],
-    // ['chair/Chair_R_small.png', 'right'],
+    ['averted_gaze/YC_L2_small.png', 'left'],
+    ['averted_gaze/YC_R2_small.png', 'right'],
+    ['chair/Chair_L_small.png', 'left'],
+    ['chair/Chair_R_small.png', 'right'],
 ];
 const BACKGROUND_IMAGES = [
     'background/grassfield_adjusted.png',
-    // 'background/sea_adjusted.png'
+    'background/sea_adjusted.png'
 ];
 const TRIAL_LIST = GENERATE_TRIAL_LIST(IMAGES, BACKGROUND_IMAGES)
 const TRIAL_IMG_LIST = SHUFFLE_ARRAY(TRIAL_LIST);
@@ -73,13 +70,6 @@ $(document).ready(()=>{
         trial_options['subj'] = subj;
         trial = new trialObject(trial_options);
         instr.start();
-    }
-
-    function HALT_EXPERIMENT(explanation) {
-        $('.page-box').hide();
-        $('#instr-text').html(explanation);
-        $('#next-button').hide();
-        $('#instr-box').show();
     }
 });
 
@@ -199,18 +189,25 @@ function AJAX_FAILED() {
     HALT_EXPERIMENT('Oops! An error has occurred. Please submit with the code "AJAX_ERR". Sorry!');
 }
 
+function HALT_EXPERIMENT(explanation) {
+    $('.page-box').hide();
+    $('#instr-text').html(explanation);
+    $('#next-button').hide();
+    $('#instr-box').show();
+}
+
 var subj_options = {
     titles: SUBJ_TITLES,
     viewportMinW: VIEWPORT_MIN_W,
     viewportMinH: VIEWPORT_MIN_H,
     subjNumCallback: UPDATE_TRIAL_OBJECT_SUBJ_NUM,
-    //subjNumScript: SUBJ_NUM_SCRIPT,
-    //savingScript: SAVING_SCRIPT,
-    //subjNumFile: SUBJ_NUM_FILE,
-    //visitFile: VISIT_FILE,
-    //attritionFile: ATTRITION_FILE,
-    //subjFile: SUBJ_FILE,
-    //savingDir: SAVING_DIR,
+    subjNumScript: SUBJ_NUM_SCRIPT,
+    savingScript: SAVING_SCRIPT,
+    subjNumFile: SUBJ_NUM_FILE,
+    visitFile: VISIT_FILE,
+    attritionFile: ATTRITION_FILE,
+    subjFile: SUBJ_FILE,
+    savingDir: SAVING_DIR,
     handleVisibilityChange: HANDLE_VISIBILITY_CHANGE
 };
 
@@ -398,10 +395,10 @@ var trial_options = {
     titles: TRIAL_TITLES,
     pracTrialN: PRACTICE_TRIAL_N,
     trialN: TRIAL_N,
-    //savingScript: SAVING_SCRIPT,
-    //dataFile: TRIAL_FILE,
-    //stimPath: STIM_PATH,
-    //savingDir: SAVING_DIR,
+    savingScript: SAVING_SCRIPT,
+    dataFile: TRIAL_FILE,
+    stimPath: STIM_PATH,
+    savingDir: SAVING_DIR,
     trialList: TRIAL_IMG_LIST,
     pracList: TRIAL_PRACTICE_LIST,
     intertrialInterval: INTERTRIAL_INTERVAL,

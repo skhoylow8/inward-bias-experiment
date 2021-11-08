@@ -77,7 +77,6 @@ function GENERATE_TRIAL_LIST(images, background_images){
             res.push(obj);
         }
     }
-    console.log(res)
     return res;
 }
 

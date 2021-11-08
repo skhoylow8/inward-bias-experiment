@@ -42,16 +42,16 @@ class subjObject {
         function SUBJ_NUM_UPDATE_SUCCEEDED(number) {
             that.num = number;
             that.subjNumCallback();
-            // if (that.condition == 'auto') {
-            //     that.assignCondition();
-            // }
+            if (that.condition == 'auto') {
+                that.assignCondition();
+            }
         }
         function SUBJ_NUM_UPDATE_FAILED() {
             that.num = -999;
             that.subjNumCallback();
         }
-        console.log("obtainSubjNum() ---->", this.subjNumFile)
-        // POST_DATA(this.subjNumScript, { 'directory_path': this.savingDir, 'file_name': this.subjNumFile }, SUBJ_NUM_UPDATE_SUCCEEDED, SUBJ_NUM_UPDATE_FAILED);
+        console.log("obtainSubjNum() ---->", this.num)
+        POST_DATA(this.subjNumScript, { 'directory_path': this.savingDir, 'file_name': this.subjNumFile }, SUBJ_NUM_UPDATE_SUCCEEDED, SUBJ_NUM_UPDATE_FAILED);
     }
 
     saveVisit() {
@@ -67,12 +67,12 @@ class subjObject {
             'file_name': this.visitFile,
             'data': data
         };
-        console.log("saveVisit() --->", data)
-        // $.ajax({
-        //     type: 'POST',
-        //     url: this.savingScript,
-        //     data: postData,
-        // });
+        console.log("saveVisit() --->", postData)
+        $.ajax({
+            type: 'POST',
+            url: this.savingScript,
+            data: postData,
+        });
     }
 
     getID(get_variable) {
@@ -130,11 +130,11 @@ class subjObject {
             'data': data
         };
         console.log("saveAttrition() --->", data)
-        // $.ajax({
-        //     type: 'POST',
-        //     url: this.savingScript,
-        //     data: postData,
-        // });
+        $.ajax({
+            type: 'POST',
+            url: this.savingScript,
+            data: postData,
+        });
     }
 
     submitQ() {
@@ -149,11 +149,11 @@ class subjObject {
             'data': this.data
         };
         console.log("submitQ() --->", this.data)
-        // $.ajax({
-        //     type: 'POST',
-        //     url: this.savingScript,
-        //     data: postData,
-        // });
+        $.ajax({
+            type: 'POST',
+            url: this.savingScript,
+            data: postData,
+        });
     }
 
     detectVisibilityStart() {
@@ -255,12 +255,12 @@ class trialObject {
             'file_name': this.dataFile,
             'data': this.allData // data to save
         };
-        console.log("save() ---->", this.allData)
-        // $.ajax({
-        //     type: 'POST',
-        //     url: this.savingScript,
-        //     data: postData,
-        // });
+        console.log("saveTrial() ---->", this.allData)
+        $.ajax({
+            type: 'POST',
+            url: this.savingScript,
+            data: postData,
+        });
     }
 }
 
