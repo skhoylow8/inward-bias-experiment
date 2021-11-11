@@ -9,14 +9,14 @@
 // data saving
 const FORMAL = false;
 const EXPERIMENT_NAME = 'inward_bias';
-const SUBJ_NUM_SCRIPT = '../php/subjNum.php';
-const SAVING_SCRIPT = '../php/save.php';
+const SUBJ_NUM_SCRIPT = 'php/subjNum.php';
+const SAVING_SCRIPT = 'php/save.php';
 const VISIT_FILE = 'visit_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_NUM_FILE = 'subjNum_' + EXPERIMENT_NAME + '.txt';
 const ATTRITION_FILE = 'attrition_' + EXPERIMENT_NAME + '.txt';
 const TRIAL_FILE = 'trial_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_FILE = 'subj_' + EXPERIMENT_NAME + '.txt';
-const SAVING_DIR = FORMAL ? '../data/formal':'../data/testing';
+const SAVING_DIR = FORMAL ? 'data/formal':'data/testing';
 const ID_GET_VARIABLE_NAME = 'sonacode'; //'PROLIFIC_PID';
 const FREE_PASS_ID = '1234'; // this is used for testing so this id will always have future access regardless of pledge responses
 
@@ -41,8 +41,8 @@ const TRIAL_IMG_LIST = SHUFFLE_ARRAY(TRIAL_LIST);
 const TRIAL_N = TRIAL_IMG_LIST.length;
 const INSTR_TRIAL_N = PRACTICE_TRIAL_N + TRIAL_N;
 const INTERTRIAL_INTERVAL = 0.5;
-const INSTR_IMG_LIST = ['maximize_window.png'];
-const ALL_IMG_LIST = TRIAL_PRACTICE_LIST.concat(TRIAL_LIST).concat(INSTR_IMG_LIST);
+const INSTR_IMG_LIST = ['maximize_window.png', 'prac.png', 'prac_background.png'];
+const ALL_IMG_LIST = GENERATE_IMG_LIST(IMAGES, BACKGROUND_IMAGES).concat(INSTR_IMG_LIST);
 let IMAGE_ORIGINAL_POS_X = 0;
 
 // object variables
@@ -61,7 +61,6 @@ $(document).ready(()=>{
     subj = new subjObject(subj_options);
     subj.id = subj.getID(ID_GET_VARIABLE_NAME);
     subj.saveVisit();
-    console.log(subj);
     if (subj.phone) {
         HALT_EXPERIMENT('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yichiachen@ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
     } else if (subj.valid_id){
@@ -219,7 +218,7 @@ var subj_options = {
 //  ##  ##   ### ##    ##    ##    ##    ##
 // #### ##    ##  ######     ##    ##     ##
 
-const MAIN_INSTRUCTIONS_DICT = [
+const MAIN_INSTRUCTIONS_ARR = [
     [false, false, 'Thank you for participating!<br /><br />This study will take about 20 minutes. Please read the instructions carefully, and avoid using the refresh or back buttons.'],
     [false, false, 'In this experiment, I am interested in what “looks good” to you. In particular, how the framing of an image influences your aesthetic experience.'],
     [false, false, 'There are two parts to this experiment. I am going to walk you through the first part, and will explain the second part when we get to it.'],
@@ -296,7 +295,7 @@ function SHOW_CONSENT() {
 var instr_options = {
     textBox: $('#instr-box'),
     textElement: $('#instr-text'),
-    dict: MAIN_INSTRUCTIONS_DICT,
+    arr: MAIN_INSTRUCTIONS_ARR,
     quizConditions: ['onlyQ']
 };
 
@@ -436,7 +435,6 @@ function AQ_RESPONSE(event) {
     const currentTime = Date.now();
     subj.aqRt[subj.aqNowQ] = (currentTime - startTime) / 1000;
     if (subj.aqNowQ == AQ_LENGTH){
-        console.log(subj.aqResponses);
         $("#aq-box").hide();
         $(".small-warning").css('color', '#444')
         $("#questions-box").show();
@@ -451,7 +449,7 @@ function AQ_RESPONSE(event) {
             $("#aq-box").show()
         }
 
-        setTimeout(NEXT_AQ, 1000);
+        setTimeout(NEXT_AQ, 300);
     }
 }
 
@@ -461,51 +459,51 @@ const AQ_QUESTION_DICT = {
     2: "I prefer to do things the same way over and over again.",
     3: "If I try to imagine something, I find it very easy to create a picture in my mind.",
     4: "I frequently get so strongly absorbed in one thing that I lose sight of other things.",
-    // 5: "I often notice small sounds when others do not.",
-    // 6: "I usually notice car number plates or similar strings of information.",
-    // 7: "Other people frequently tell me that what I've said is impolite, even though I think it is polite.",
-    // 8: "When I'm reading a story, I can easily imagine what the characters might look like.",
-    // 9: "I am fascinated by dates (calendar dates).",
-    // 10: "In a social group, I can easily keep track of several different people's conversations.",
-    // 11: "I find social situations easy.",
-    // 12: "I tend to notice details that others do not.",
-    // 13: "I would rather go to a library than to a party.",
-    // 14: "I find making up stories easy.",
-    // 15: "I find myself drawn more strongly to people than to things.",
-    // 16: "I tend to have very strong interests, which I get upset about if I can't pursue.",
-    // 17: "I enjoy social chitchat.",
-    // 18: "When I talk, it isn't always easy for others to get a word in.",
-    // 19: "I am fascinated by numbers.",
-    // 20: "When I'm reading a story, I find it difficult to work out the characters' intentions.",
-    // 21: "I don't particularly enjoy reading fiction.",
-    // 22: "I find it hard to make new friends.",
-    // 23: "I notice patterns in things all the time.",
-    // 24: "I would rather go to the theater than to a museum.",
-    // 25: "It does not upset me if my daily routine is disturbed.",
-    // 26: "I frequently find that I don't know how to keep a conversation going.",
-    // 27: 'I find it easy to "read between the lines" when someone is talking to me.',
-    // 28: "I usually concentrate more on the whole picture, rather than on the small details.",
-    // 29: "I am not very good at remembering phone numbers.",
-    // 30: "I don't usually notice small changes in a situation or a person's appearance.",
-    // 31: "I know how to tell if someone listening to me is getting bored.",
-    // 32: "I find it easy to do more than one thing at once.",
-    // 33: "When I talk on the phone, I'm not sure when it's my turn to speak.",
-    // 34: "I enjoy doing things spontaneously.",
-    // 35: "I am often the last to understand the point of a joke.",
-    // 36: "I find it easy to work out what someone is thinking or feeling just by looking at their face.",
-    // 37: "If there is an interruption, I can switch back to what I was doing very quickly.",
-    // 38: "I am good at social chitchat.",
-    // 39: "People often tell me that I keep going on and on about the same thing.",
-    // 40: "When I was young, I used to enjoy playing games involving pretending with other children.",
-    // 41: "I like to collect information about categories of things (e.g., types of cars, birds, trains, plants, etc.).",
-    // 42: "I find it difficult to imagine what it would be like to be someone else.",
-    // 43: "I like to plan any activities I participate in carefully.",
-    // 44: "I enjoy social occasions.",
-    // 45: "I find it difficult to work out people's intentions.",
-    // 46: "New situations make me anxious.",
-    // 47: "I enjoy meeting new people.",
-    // 48: "I am a good diplomat.",
-    // 49: "I am not very good at remembering people's dates of birth.",
-    // 50: "I find it very easy to play games with children that involve pretending."
+    5: "I often notice small sounds when others do not.",
+    6: "I usually notice car number plates or similar strings of information.",
+    7: "Other people frequently tell me that what I've said is impolite, even though I think it is polite.",
+    8: "When I'm reading a story, I can easily imagine what the characters might look like.",
+    9: "I am fascinated by dates (calendar dates).",
+    10: "In a social group, I can easily keep track of several different people's conversations.",
+    11: "I find social situations easy.",
+    12: "I tend to notice details that others do not.",
+    13: "I would rather go to a library than to a party.",
+    14: "I find making up stories easy.",
+    15: "I find myself drawn more strongly to people than to things.",
+    16: "I tend to have very strong interests, which I get upset about if I can't pursue.",
+    17: "I enjoy social chitchat.",
+    18: "When I talk, it isn't always easy for others to get a word in.",
+    19: "I am fascinated by numbers.",
+    20: "When I'm reading a story, I find it difficult to work out the characters' intentions.",
+    21: "I don't particularly enjoy reading fiction.",
+    22: "I find it hard to make new friends.",
+    23: "I notice patterns in things all the time.",
+    24: "I would rather go to the theater than to a museum.",
+    25: "It does not upset me if my daily routine is disturbed.",
+    26: "I frequently find that I don't know how to keep a conversation going.",
+    27: 'I find it easy to "read between the lines" when someone is talking to me.',
+    28: "I usually concentrate more on the whole picture, rather than on the small details.",
+    29: "I am not very good at remembering phone numbers.",
+    30: "I don't usually notice small changes in a situation or a person's appearance.",
+    31: "I know how to tell if someone listening to me is getting bored.",
+    32: "I find it easy to do more than one thing at once.",
+    33: "When I talk on the phone, I'm not sure when it's my turn to speak.",
+    34: "I enjoy doing things spontaneously.",
+    35: "I am often the last to understand the point of a joke.",
+    36: "I find it easy to work out what someone is thinking or feeling just by looking at their face.",
+    37: "If there is an interruption, I can switch back to what I was doing very quickly.",
+    38: "I am good at social chitchat.",
+    39: "People often tell me that I keep going on and on about the same thing.",
+    40: "When I was young, I used to enjoy playing games involving pretending with other children.",
+    41: "I like to collect information about categories of things (e.g., types of cars, birds, trains, plants, etc.).",
+    42: "I find it difficult to imagine what it would be like to be someone else.",
+    43: "I like to plan any activities I participate in carefully.",
+    44: "I enjoy social occasions.",
+    45: "I find it difficult to work out people's intentions.",
+    46: "New situations make me anxious.",
+    47: "I enjoy meeting new people.",
+    48: "I am a good diplomat.",
+    49: "I am not very good at remembering people's dates of birth.",
+    50: "I find it very easy to play games with children that involve pretending."
 };
 const AQ_LENGTH = Object.keys(AQ_QUESTION_DICT).length;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

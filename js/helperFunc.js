@@ -80,6 +80,17 @@ function GENERATE_TRIAL_LIST(images, background_images){
     return res;
 }
 
+function GENERATE_IMG_LIST(images, background_images){
+    let res = [];
+    for(let index in images){
+        res.push(images[index][0]);
+    }
+    for(let index in background_images){
+        res.push(background_images[index]);
+    }
+    return res;
+}
+
 function SHUFFLE_ARRAY(input_array) {
     var j, temp;
     var arr = Array.from(input_array);

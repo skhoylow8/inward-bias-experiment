@@ -11,7 +11,6 @@
         $subjNum = 1;
     }
     echo $subjNum;
-    echo $directory_path;
     if (!is_dir($directory_path)) {
         mkdir($directory_path, 0777, true);
     }

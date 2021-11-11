@@ -50,8 +50,19 @@ class subjObject {
             that.num = -999;
             that.subjNumCallback();
         }
-        console.log("obtainSubjNum() ---->", this.num)
         POST_DATA(this.subjNumScript, { 'directory_path': this.savingDir, 'file_name': this.subjNumFile }, SUBJ_NUM_UPDATE_SUCCEEDED, SUBJ_NUM_UPDATE_FAILED);
+    }
+
+    assignCondition() {
+        var that = this;
+        const CHECK_SUBJ_NUM = function(){
+            if(that.num != 'pre-post'){
+                clearInterval(interval_id);
+                that.condition = that.conditionList[(that.num-1) % that.conditionList.length];
+                that.conditionAssigned = true;
+            }
+        };
+        var interval_id = setInterval(CHECK_SUBJ_NUM, 10);
     }
 
     saveVisit() {
@@ -67,7 +78,6 @@ class subjObject {
             'file_name': this.visitFile,
             'data': data
         };
-        console.log("saveVisit() --->", postData)
         $.ajax({
             type: 'POST',
             url: this.savingScript,
@@ -129,7 +139,6 @@ class subjObject {
             'file_name': this.attritionFile,
             'data': data
         };
-        console.log("saveAttrition() --->", data)
         $.ajax({
             type: 'POST',
             url: this.savingScript,
@@ -148,7 +157,6 @@ class subjObject {
             'file_name': this.subjFile,
             'data': this.data
         };
-        console.log("submitQ() --->", this.data)
         $.ajax({
             type: 'POST',
             url: this.savingScript,
@@ -249,13 +257,29 @@ class trialObject {
         }
     }
 
+    rest(box_element, text_element, callback, callback_parameters) {
+        text_element.html('You are done with '+ this.progress + '% of the study!<br /><br />Take a short break now and hit space to continue whenever you are ready.')
+        box_element.show();
+        $(document).keyup(function(e) {
+            if (e.which == 32) {
+                $(document).off('keyup');
+                box_element.hide();
+                if (typeof callback_parameters == 'undefined') {
+                    callback();
+                }
+                else {
+                    callback(callback_parameters);
+                }
+            }
+        });
+    }
+
     save() {
         var postData = {
             'directory_path': this.savingDir,
             'file_name': this.dataFile,
             'data': this.allData // data to save
         };
-        console.log("saveTrial() ---->", this.allData)
         $.ajax({
             type: 'POST',
             url: this.savingScript,
@@ -279,7 +303,7 @@ class instrObject {
         Object.assign(this, {
             textBox: false,
             textElement: false,
-            dict: [],
+            arr: [],
             quizConditions: []
         }, options);
         this.index = 0;
@@ -291,13 +315,13 @@ class instrObject {
     }
 
     advance() {
-        this.textElement.html(this.dict[this.index][2]);
-        const PRE_FUNCTION = this.dict[this.index][0];
+        this.textElement.html(this.arr[this.index][2]);
+        const PRE_FUNCTION = this.arr[this.index][0];
         if (PRE_FUNCTION !== false) {
             PRE_FUNCTION();
         }
         this.textBox.show();
-        const POST_FUNCTION = this.dict[this.index][1];
+        const POST_FUNCTION = this.arr[this.index][1];
         if (POST_FUNCTION !== false) {
             POST_FUNCTION();
         }
@@ -315,12 +339,12 @@ class instrObject {
             this.saveReadingTime();
             this.textBox.hide();
             this.index += 1;
-            if (this.index < Object.keys(this.dict).length) {
+            if (this.index < Object.keys(this.arr).length) {
                 this.advance();
             }
         }
 
-        setTimeout(START_NEXT, 1000);
+        setTimeout(START_NEXT, 300);
     }
 
     saveReadingTime() {
