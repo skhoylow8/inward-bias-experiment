@@ -85,7 +85,7 @@
 
                 <strong>Identification of Investigators</strong><br />
                 If you have any questions, feel free to contact Dr. Hongjing Lu (hongjing@ucla.edu), at the
-                Department of Psychology, UCLA, 405 Hilgard Ave., Los Angeles, CA 90095-1563.<br /><br />
+                Department of Psychology, UCLA, 405 Hillgard Ave., Los Angeles, CA 90095-1563.<br /><br />
 
                 <strong>Rights of Research Subjects</strong><br />
                 You may withdraw your consent at any time and discontinue participation without penalty. You
@@ -105,24 +105,24 @@
     <div class="page-box fixed-box" id="quiz-box">
         <div class="question bold">What is your job in this experiment?</div>
         <label><div class="option row"><input class="radio-button" type="radio" name="quiz" value="forgot" /><p class="option-text">Select this option if you do not remember the instructions.</p></div></label>
-        <label><div class="option row"><input class="radio-button" type="radio" name='quiz' value="horizontally" /><p class="option-text">I have to move the figure horizontally until it looks good to me.</p></div></label>
         <label><div class="option row"><input class="radio-button" type="radio" name="quiz" value="vertically"/><p class="option-text">I have to move the figure vertically until it looks good to me.</p></div></label>
         <label><div class="option row"><input class="radio-button" type="radio" name='quiz' value="horizontally-wrong" /><p class="option-text">I have to move the figure horizontally until it looks good to others.</p></div></label>
         <label><div class="option row"><input class="radio-button" type="radio" name='quiz' value="vertically-wrong" /><p class="option-text">I have to move the figure vertically until it looks good to others.</p></div></label>
+        <label><div class="option row"><input class="radio-button" type="radio" name='quiz' value="horizontally" /><p class="option-text">I have to move the figure horizontally until it looks good to me.</p></div></label>
         <button class="button" onclick="SUBMIT_INSTR_Q()">SUBMIT</button>
         <p class="warning" id="quiz-warning"></p>
     </div>
 
     <!--======== TASK ========-->
     <div class="page-box" id="task-box">
-        <div class="center-text bold" id="task-header">Drag figure horizantally until it looks good to you.</div>
+        <div class="center-text bold" id="task-header">Drag figure horizontally until it looks good to you.</div>
         <div id="test-frame">
             <img id="test-img" src="media/blank.png" alt="" draggable="false">
         </div>
         <div id="buffer-frame">
             <img id="buffer-img" src="media/blank.png" alt="">
         </div>
-        <button class="button" id="exp-button" onclick="END_TRIAL()">NEXT</button>
+        <button class="button" id="exp-button" onclick="END_TRIAL()">SUBMIT</button>
     </div> 
         
     <!--======== AQ QUESTION ========-->
@@ -132,7 +132,7 @@
             The second part will take about 5 minutes. You will read 50 simple statements one by one, and rate your agreement. <br /><br />
             Hit SPACE to start!
         </p>
-        <div id="aq-container">
+        <div id="aq-container" class="fixed-box">
             <div id="aq-progress-bar"><span id="aq-progress">0</span>% completed</div>
             <div class="aq-rating-container">
                 <div id="aqQ" class="center-text aq-heading"></div>
@@ -190,6 +190,8 @@
         Now, the last thing to do is to hit END to submit your work.<br /><br />
 
         If you are interested in what we are doing, see below for more information!<br /><br />
+        <button class="button" onclick="END_SONA()">END</button>
+
         <strong>Debriefing Sheet:</strong><br />
         <p style="font-size: 18px; padding-bottom: 5%;">
             <br />
@@ -203,7 +205,7 @@
             What we want to know in this study is why this is the case. We suspect that this 
             preference has evolved to help us “frame” the world with our visual field--when we turn 
             our head to a particular direction to look at a certain object, we are effectively 
-            “framing” the visual world. An inward bias can thus serve an addaptive function: leaving 
+            “framing” the visual world. An inward bias can thus serve an adaptive function: leaving 
             more space in the front of the figure allows us to see what is going to happen next if 
             the figure moves, or is interacted with in the future (since most things tend to happen 
             in the front rather than in the back of a person or an object). To test this idea, we 
@@ -232,8 +234,6 @@
 
             If you have any questions, please feel free to contact the researcher Hongjing Lu at hongjing@ucla.edu.
         </p>
-
-        <button class="button" onclick="END_SONA()">END</button>
     </div>
 
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>

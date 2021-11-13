@@ -213,3 +213,35 @@ function CHECK_FULLY_IN_VIEW(el) {
     const IS_VISIBLE = (TOP >= 0) && (BOTTOM <= H) && (LEFT >= 0) && (RIGHT <= W);
     return IS_VISIBLE;
 }
+
+function MAXIMIZE_WINDOW() {
+    let el = document.documentElement;
+    if (el.requestFullscreen) {
+        el.requestFullscreen();
+    } else if (el.mozRequestFullScreen) {
+        /* Firefox */
+        el.mozRequestFullScreen();
+    } else if (el.webkitRequestFullscreen) {
+        /* Chrome, Safari and Opera */
+        el.webkitRequestFullscreen();
+    } else {
+        /* IE/Edge */
+        el.msRequestFullscreen();
+    }
+}
+
+function EXIT_MAXIMIZE_WINDOW() {
+    let el = document;
+    if (el.exitFullscreen) {
+        el.exitFullscreen();
+    } else if (el.mozCancelFullScreen) {
+        /* Firefox */
+        el.mozCancelFullScreen();
+    } else if (el.webkitExitFullscreen) {
+        /* Chrome, Safari and Opera */
+        el.webkitExitFullscreen();
+    } else {
+        /* IE/Edge */
+        el.msExitFullscreen();
+    }
+}

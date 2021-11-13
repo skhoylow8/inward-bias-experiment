@@ -90,6 +90,20 @@ body{
 .button:active {
     background: #111;
 }
+.button:disabled {
+    display: block;
+    position: relative;
+    margin: 25px auto;
+    width: 250px;
+    height: 35px;
+    font-size: 18px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 8px;
+    background: #5f5f5f;
+    color: #ddd;
+    cursor: auto;
+}
 .option {
     position: relative;
     margin: 10px 0;
@@ -197,7 +211,7 @@ body{
     background-color: white;
     border-color: black;
     border-style: solid;
-    border-width: 2px;
+    border-width: 8px;
     position: relative;
     height: 300px;
     margin-top: 5%;
@@ -242,7 +256,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20%;
+    margin: 10% 0;
 }
 #aq-progress-bar {
     font-size: 24px;
@@ -257,40 +271,40 @@ body{
     justify-content: center;
 }
 .aq-button {
-    margin: 5%;
+    margin: 10px;
     width: 200px;
     border-radius: 10px;
     font-size: 20px;
-    padding: 1%;
+    padding: 2%;
     cursor: pointer;
 }
 #aq-1 {
-    background-color: #4FC3F7;
+    background-color: #253DA1;
     color: white;
 }
 #aq-1:hover {
-    background-color: #81D4FA;
+    background-color: #2e47ad;
 }
 #aq-2 {
-    background-color: #29B6F6;
+    background-color: #02198B;
     color: white;
 }
 #aq-2:hover {
-    background-color: #81D4FA;
+    background-color: #0c25a1;
 }
 #aq-3 {
-    background-color: #039BE5;
+    background-color: #02055A;
     color: white;
 }
 #aq-3:hover {
-    background-color: #29B6F6;
+    background-color: #0a0d6d;
 }
 #aq-4 {
-    background-color: #0277BD;
+    background-color: #000137;
     color: white;
 }
 #aq-4:hover {
-    background-color: #039BE5 ;
+    background-color: #05074b ;
 }
 
 /* ########  ######## ########  ########  #### ######## ######## #### ##    ##  ######    */

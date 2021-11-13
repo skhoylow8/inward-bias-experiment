@@ -31,6 +31,8 @@ const IMAGES = [
     ['averted_gaze/YC_R2_small.png', 'right'],
     ['chair/Chair_L_small.png', 'left'],
     ['chair/Chair_R_small.png', 'right'],
+    ['chair/Chair_Black_L.png', 'left'],
+    ['chair/Chair_Black_R.png', 'right'],
 ];
 const BACKGROUND_IMAGES = [
     'background/grassfield_adjusted.png',
@@ -181,6 +183,7 @@ function ALLOW_SELECTION() {
 function END_SONA() {
     console.log("End to sona!");
     $("#debriefing-box").hide();
+    EXIT_MAXIMIZE_WINDOW()
     // window.location.href = 'https://app.prolific.co/submissions/complete?cc=XXX'; // link provided by Prolific
 }
 
@@ -222,8 +225,8 @@ const MAIN_INSTRUCTIONS_ARR = [
     [false, false, 'Thank you for participating!<br /><br />This study will take about 20 minutes. Please read the instructions carefully, and avoid using the refresh or back buttons.'],
     [false, false, 'In this experiment, I am interested in what “looks good” to you. In particular, how the framing of an image influences your aesthetic experience.'],
     [false, false, 'There are two parts to this experiment. I am going to walk you through the first part, and will explain the second part when we get to it.'],
-    [SHOW_MAXIMIZE_WINDOW, false, 'Now, please maximize your browser window.'],
-    [SHOW_TRIAL_IMG, false, 'In the first part, you will view an image in a frame (as in the example below). As you can see below, there will be a figure (an object or a person) in the image.'],
+    [SHOW_MAXIMIZE_WINDOW, false, 'For this study to work, the webpage will automatically switch to the full-screen view on the next page. Please stay in the full screen mode until the study automatically switches out from it.'],
+    [SHOW_TRIAL_IMG, MAXIMIZE_WINDOW, 'In the first part, you will view an image in a frame (as in the example below). As you can see below, there will be a figure (an object or a person) in the image.'],
     [HIDE_TRIAL_IMG, false, 'Your job is to make the image look as good as possible to you by adjusting the horizontal position of the figure in it.'],
     [false, false, 'That means, you will drag the figure left or right to move it within the image and drop it wherever you think makes the image look visually pleasing.'],
     [false, false, 'You will first practice this ' + PRACTICE_TRIAL_N +' time and do this seriously ' + TRIAL_N + ' times after.'],
@@ -351,37 +354,31 @@ function TRIAL_UPDATE(formal_trial, last, this_trial, next_trial, path) {
     
     // Make image draggable
     $("#test-img").draggable({
-        containment: 'parent',
-        axis: 'x',
+        containment: "parent",
+        axis: "x",
     });
 }
 
 const ADJUST_IMAGE = () =>{ 
     let imagePosX = $("#test-img").position().left;
     trial.imagAdj = imagePosX - IMAGE_ORIGINAL_POS_X;
-    $('#exp-button').prop("disabled",false);
+    $("#exp-button").prop("disabled",false);
 }
 
 function TRIAL() {
-    $("#test-frame").show();
-    $("#exp-button").show();
-    $("#task-header").show();
+    $("#test-frame").css("visibility", "visible");
     trial.inView = CHECK_FULLY_IN_VIEW($("#test-img"));
 }
 
 function END_TRIAL() {
-    $("#test-frame").hide();
-    $("#exp-button").hide();
-    $("#task-header").hide();
+    $("#test-frame").css("visibility", "hidden");
     trial.end();
 }
 
 function END_EXPT() {
-    $("#trial-page").hide();
-    $("#exp-button").hide();
-    $("#task-header").hide();
+    $("#task-box").hide();
     trial.save();
-    $("#aq-box").css("display", "block");
+    $("#aq-box").show();
     $(document).keyup(function(e) {
         if (e.which == 32) { // the 'space' key
             $(document).off("keyup");
