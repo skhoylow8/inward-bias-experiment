@@ -101,6 +101,7 @@ const SUBJ_TITLES = [
     'problems',
     'gender',
     'age',
+    'maximized',
     'inView',
     'viewportW',
     'viewportH'
@@ -149,10 +150,17 @@ function SUBMIT_DEBRIEFING_Q() {
     }else{
         $('#age-warning').css('color', '#444')
     }
+
+    subj.maximized = $('input[name=maximized]:checked').val();
+    if(!CHECK_IF_RESPONDED([], [subj.maximized])){
+        $('#maximized-warning').css('color', '#ffc8c8')
+    }else{
+        $('#maximized-warning').css('color', '#444')
+    }
     
     const OPEN_ENDED_LIST = [subj.problems, subj.age];
     const OPEN_ENDED_ATTRIBUTE_NAMES = ['problems', 'age'];
-    const CHOICE_LIST = [subj.serious, subj.gender];
+    const CHOICE_LIST = [subj.serious, subj.gender, subj.maximized];
     const ALL_RESPONDED = CHECK_IF_RESPONDED(OPEN_ENDED_LIST, CHOICE_LIST);
     if (ALL_RESPONDED) {
         for (var i = 0; i < OPEN_ENDED_LIST.length; i++) {
